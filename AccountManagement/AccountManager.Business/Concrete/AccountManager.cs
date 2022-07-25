@@ -1,4 +1,5 @@
-﻿using AccountManager.Data.Abstract;
+﻿using AccountManager.Business.Abstract;
+using AccountManager.Data.Abstract;
 using AccountManager.Dto.Concrete;
 using AccountManager.Entity.Concrete;
 using AutoMapper;
@@ -7,7 +8,7 @@ using Core.Utilities.Results;
 
 namespace AccountManager.Business.Concrete
 {
-    public class AccountManager : AsyncBaseManager<AccountDto, Account>
+    public class AccountManager : AsyncBaseManager<AccountDto, Account>, IAccountService
     {
         public AccountManager(IAccountDal repository, IMapper mapper) : base(repository, mapper)
         {
