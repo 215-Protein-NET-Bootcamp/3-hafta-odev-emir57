@@ -17,5 +17,7 @@
 
         public static readonly string SuccessList = "UnSuccessfully list";
         public static readonly string UnSuccessList = "UnSuccessfully list";
+
+        public static readonly string NotFound = "Not found entity";
     }
 }
