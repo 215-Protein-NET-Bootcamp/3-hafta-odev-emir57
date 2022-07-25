@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Core.Entity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq.Expressions;
 
 namespace Core.DataAccess.EntityFramework
 {
     public class EfRepositoryBase<TEntity, TContext> : IAsyncEntityRepository<TEntity>
-        where TEntity : class, new()
+        where TEntity : class, IEntity, new()
         where TContext : DbContext, new()
     {
         public async Task<bool> AddAsync(TEntity entity)

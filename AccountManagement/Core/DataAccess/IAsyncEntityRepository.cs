@@ -1,8 +1,10 @@
-﻿using System.Linq.Expressions;
+﻿using Core.Entity;
+using System.Linq.Expressions;
 
 namespace Core.DataAccess
 {
     public interface IAsyncEntityRepository<TEntity>
+        where TEntity : class, IEntity, new()
     {
         Task<bool> AddAsync(TEntity entity);
         Task<bool> UpdateAsync(TEntity entity);
