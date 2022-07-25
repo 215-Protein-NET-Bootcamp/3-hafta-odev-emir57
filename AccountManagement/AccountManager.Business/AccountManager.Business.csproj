@@ -16,6 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AccountManager.Data\AccountManager.Data.csproj" />
+    <ProjectReference Include="..\AccountManager.Dto\AccountManager.Dto.csproj" />
+    <ProjectReference Include="..\AccountManager.Entity\AccountManager.Entity.csproj" />
     <ProjectReference Include="..\Core\Core.csproj" />
   </ItemGroup>
 
