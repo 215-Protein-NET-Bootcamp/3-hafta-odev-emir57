@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Concrete\" />
     <Folder Include="DependencyResolvers\Autofac\" />
     <Folder Include="ValidationRules\FluentValidation\" />
   </ItemGroup>

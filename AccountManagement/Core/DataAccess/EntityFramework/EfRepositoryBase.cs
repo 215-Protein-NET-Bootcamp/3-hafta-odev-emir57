@@ -1,6 +1,7 @@
 ﻿using Core.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System;
 using System.Linq.Expressions;
 
 namespace Core.DataAccess.EntityFramework
@@ -51,6 +52,14 @@ namespace Core.DataAccess.EntityFramework
             using (var context = new TContext())
             {
                 return await context.Set<TEntity>().AsNoTracking().SingleOrDefaultAsync(predicate);
+            }
+        }
+
+        public async Task<TEntity> GetByIdAsync(int id)
+        {
+            using (var context = new TContext())
+            {
+                return await context.Set<TEntity>().FindAsync(id);
             }
         }
 

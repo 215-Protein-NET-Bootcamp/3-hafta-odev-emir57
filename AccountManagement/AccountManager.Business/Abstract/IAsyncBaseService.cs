@@ -7,11 +7,11 @@ namespace AccountManager.Business.Abstract
         where TDto : class, IDto, new()
         where TEntity : class, IEntity, new()
     {
-        Task<IResult> AddAsync(TEntity entity);
-        Task<IResult> UpdateAsync(TEntity entity);
-        Task<IResult> DeleteAsync(TEntity entity);
+        Task<IResult> AddAsync(TDto entity);
+        Task<IResult> UpdateAsync(int id, TDto entity);
+        Task<IResult> DeleteAsync(int id);
 
-        Task<IDataResult<TEntity>> GetByIdAsync(int id);
-        Task<IDataResult<IEnumerable<TEntity>>> GetAllAsync();
+        Task<IDataResult<TDto>> GetByIdAsync(int id);
+        Task<IDataResult<List<TDto>>> GetAllAsync();
     }
 }
