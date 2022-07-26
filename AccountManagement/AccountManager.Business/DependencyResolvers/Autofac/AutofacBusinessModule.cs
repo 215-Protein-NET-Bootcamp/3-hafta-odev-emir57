@@ -3,6 +3,7 @@ using concrete = AccountManager.Business.Concrete;
 using @abstract = AccountManager.Business.Abstract;
 using AccountManager.Data.Concrete.EntityFramework;
 using AccountManager.Data.Abstract;
+using Core.Utilities.Security.Jwt;
 
 namespace AccountManager.Business.DependencyResolvers.Autofac
 {
@@ -20,6 +21,9 @@ namespace AccountManager.Business.DependencyResolvers.Autofac
             builder.RegisterType<EfAccountDal>().As<IAccountDal>();
             #endregion
 
+            #region Jwt
+            builder.RegisterType<JwtHelper>().As<ITokenHelper>();
+            #endregion
         }
     }
 }
