@@ -32,10 +32,10 @@ namespace Core.Aspects.Autofac.Logging
 
         private string GetLogDetail(IInvocation invocation)
         {
-            var parameters = new List<LogParameter>();
+            var logParameters = new List<LogParameter>();
             for (int i = 0; i < invocation.Arguments.Length; i++)
             {
-                parameters.Add(new()
+                logParameters.Add(new LogParameter()
                 {
                     Name = invocation.GetConcreteMethod().GetParameters()[i].Name,
                     Type = invocation.Arguments[i].GetType().ToString(),
@@ -45,7 +45,7 @@ namespace Core.Aspects.Autofac.Logging
             LogDetail logDetail = new LogDetail
             {
                 MethodName = invocation.GetConcreteMethod().Name,
-                Parameters = parameters,
+                Parameters = logParameters,
                 UserEmail = _httpContextAccessor.HttpContext.User.ClaimEmail()
             };
             return JsonConvert.SerializeObject(logDetail);

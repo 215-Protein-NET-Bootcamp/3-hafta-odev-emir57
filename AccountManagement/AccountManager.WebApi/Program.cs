@@ -1,6 +1,7 @@
 using AccountManager.Business.DependencyResolvers.Autofac;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Core.DependencyResolvers;
 using Core.Extensions;
 using Core.Extensions.Middleware;
 using Core.Utilities.Security.Encryption;
@@ -47,7 +48,8 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
 #endregion
 
 #region Core DependencyResolver
-builder.Services.AddDependencyResolvers();
+builder.Services.AddDependencyResolvers(
+    new CoreModule());
 #endregion
 
 var app = builder.Build();

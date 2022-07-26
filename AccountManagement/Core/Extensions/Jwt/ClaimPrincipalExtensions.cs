@@ -16,7 +16,7 @@ namespace Core.Extensions.Jwt
 
         public static string ClaimEmail(this ClaimsPrincipal claimsPrincipal)
         {
-            return claimsPrincipal.Claims(ClaimTypes.Email).First();
+            return claimsPrincipal.Claims(ClaimTypes.Email)?.First() ?? "<Anonymous>";
         }
     }
 }

@@ -16,7 +16,7 @@ namespace AccountManager.WebApi.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> LoginAsync(LoginDto loginDto)
+        public async Task<IActionResult> LoginAsync([FromBody] LoginDto loginDto)
         {
             var loginResult = await _authService.LoginAsync(loginDto);
             if (loginResult.Success == false)
@@ -29,7 +29,7 @@ namespace AccountManager.WebApi.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> RegisterAsync(RegisterDto registerDto)
+        public async Task<IActionResult> RegisterAsync([FromBody] RegisterDto registerDto)
         {
             var registerResult = await _authService.RegisterAsync(registerDto);
             if (registerResult.Success == false)

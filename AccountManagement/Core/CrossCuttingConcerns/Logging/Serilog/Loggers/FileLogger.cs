@@ -1,5 +1,5 @@
 ﻿using Core.CrossCuttingConcerns.Logging.Serilog.ConfigurationModels;
-using Core.Exceptions.Log;
+using Core.Exceptions.Logging;
 using Core.Utilities.IoC;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
