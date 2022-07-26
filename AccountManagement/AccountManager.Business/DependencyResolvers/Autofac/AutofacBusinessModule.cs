@@ -7,6 +7,8 @@ using Core.Utilities.Security.Jwt;
 using AccountManager.Business.Concrete;
 using AccountManager.Business.Abstract;
 using Microsoft.AspNetCore.Http;
+using Autofac.Extras.DynamicProxy;
+using Core.Utilities.Interceptors;
 
 namespace AccountManager.Business.DependencyResolvers.Autofac
 {
@@ -35,6 +37,14 @@ namespace AccountManager.Business.DependencyResolvers.Autofac
             #region HttpContextAccessor
             builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>();
             #endregion
+
+            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
+                .EnableInterfaceInterceptors(new Castle.DynamicProxy.ProxyGenerationOptions
+                {
+                    Selector = new AspectInterceptorSelector()
+                });
+
         }
     }
 }
