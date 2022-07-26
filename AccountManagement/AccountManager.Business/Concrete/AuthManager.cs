@@ -58,7 +58,10 @@ namespace AccountManager.Business.Concrete
             accountDto.PasswordHash = passwordHash;
             accountDto.PasswordSalt = passwordSalt;
 
-            return await _accountService.AddAsync(accountDto);
+            var addResult = await _accountService.AddAsync(accountDto);
+            if (addResult.Success == false)
+                return new ErrorResult(BusinessMessages.UnSuccessRegister);
+            return new SuccessResult(BusinessMessages.SuccessRegister);
         }
     }
 }

@@ -27,5 +27,14 @@ namespace AccountManager.WebApi.Controllers
                 return BadRequest(tokenResult);
             return Ok(tokenResult);
         }
+
+        [HttpPost("register")]
+        public async Task<IActionResult> RegisterAsync(RegisterDto registerDto)
+        {
+            var registerResult = await _authService.RegisterAsync(registerDto);
+            if (registerResult.Success == false)
+                return BadRequest(registerResult);
+            return Ok(registerResult);
+        }
     }
 }

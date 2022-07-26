@@ -26,5 +26,8 @@ namespace AccountManager.Business.Constants
 
         internal static readonly string UserAlreadyExists = "User already exists";
         internal static readonly string NotFoundAccount = "Not found account";
+
+        internal static readonly string UnSuccessRegister = "UnSuccessfully register";
+        internal static readonly string SuccessRegister = "Successfully register";
     }
 }
