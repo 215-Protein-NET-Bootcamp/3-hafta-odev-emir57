@@ -23,6 +23,8 @@ namespace AccountManager.Business.Constants
         public static readonly string NotFound = "Not found entity";
 
         public static readonly string WrongPassword = "Wrong password";
-        internal static readonly string UserAlreadyExists;
+
+        internal static readonly string UserAlreadyExists = "User already exists";
+        internal static readonly string NotFoundAccount = "Not found account";
     }
 }

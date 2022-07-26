@@ -34,7 +34,7 @@ namespace AccountManager.Business.Concrete
         {
             var accountCheck = await _accountService.GetAccountByEmailOrUsername(loginDto.UserNameOrEmail);
             if (accountCheck.Success == false)
-                return accountCheck;
+                return new ErrorDataResult<Account>(BusinessMessages.NotFoundAccount);
             if (HashingHelper.VerifyPasswordHash(
                 loginDto.Password,
                 accountCheck.Data.PasswordHash,
