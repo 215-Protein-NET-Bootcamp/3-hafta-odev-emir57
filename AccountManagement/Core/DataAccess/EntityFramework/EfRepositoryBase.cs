@@ -27,8 +27,8 @@ namespace Core.DataAccess.EntityFramework
             {
                 EntityEntry entityEntry = context.Entry(entity);
                 entityEntry.State = EntityState.Deleted;
-                int row = await context.SaveChangesAsync();
-                return row > 0;
+                //int row = await context.SaveChangesAsync();
+                return true;
             }
         }
 
