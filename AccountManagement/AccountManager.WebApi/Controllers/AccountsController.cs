@@ -11,8 +11,10 @@ namespace AccountManager.WebApi.Controllers
     [Route("api/[controller]")]
     public class AccountsController : BaseController<AccountDto, Account>
     {
-        public AccountsController(IAccountService baseService, IMapper mapper) : base(baseService, mapper)
+        private readonly IAuthService _authService;
+        public AccountsController(IAccountService baseService, IMapper mapper, IAuthService authService) : base(baseService, mapper)
         {
+            _authService = authService;
         }
 
         [HttpGet]
@@ -26,9 +28,12 @@ namespace AccountManager.WebApi.Controllers
             return await base.GetByIdAsync(id);
         }
         [HttpPost]
-        public async Task<IActionResult> AddAsync([FromBody] AccountDto personDto)
+        public async Task<IActionResult> AddAsync([FromBody] RegisterDto registerDto)
         {
-            return await base.AddAsync(personDto);
+            var registerResult = await _authService.RegisterAsync(registerDto);
+            if (registerResult.Success == false)
+                return BadRequest(registerResult);
+            return Ok(registerResult);
         }
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateAsync([FromRoute] int id, [FromBody] AccountDto personDto)

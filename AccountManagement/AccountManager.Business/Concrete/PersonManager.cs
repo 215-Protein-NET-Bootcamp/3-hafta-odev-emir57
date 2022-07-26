@@ -27,7 +27,7 @@ namespace AccountManager.Business.Concrete
         public async Task<IDataResult<List<Person>>> GetPersons()
         {
             string loginedAccountId = _httpContextAccessor.HttpContext.User.ClaimId();
-            var persons = await _personDal.GetAllAsync(x => x.AccountId == int.Parse(loginedAccountId));
+            var persons = await _personDal.GetAllAsync(x => x.AccountId == Convert.ToInt32(loginedAccountId));
             return new SuccessDataResult<List<Person>>(persons.ToList());
         }
 

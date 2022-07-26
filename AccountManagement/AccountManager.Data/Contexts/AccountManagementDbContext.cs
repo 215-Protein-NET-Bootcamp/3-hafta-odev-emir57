@@ -17,6 +17,7 @@ namespace AccountManager.Data.Contexts
                 .ToTable("Accounts");
 
             modelBuilder.Entity<Person>()
+                .HasNoKey()
                 .ToTable("Persons");
         }
 

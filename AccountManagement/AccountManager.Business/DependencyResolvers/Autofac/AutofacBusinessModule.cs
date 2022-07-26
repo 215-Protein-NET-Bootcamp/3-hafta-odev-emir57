@@ -6,6 +6,7 @@ using AccountManager.Data.Abstract;
 using Core.Utilities.Security.Jwt;
 using AccountManager.Business.Concrete;
 using AccountManager.Business.Abstract;
+using Microsoft.AspNetCore.Http;
 
 namespace AccountManager.Business.DependencyResolvers.Autofac
 {
@@ -29,6 +30,10 @@ namespace AccountManager.Business.DependencyResolvers.Autofac
 
             #region Auth
             builder.RegisterType<concrete.AuthManager>().As<@abstract.IAuthService>();
+            #endregion
+
+            #region HttpContextAccessor
+            builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>();
             #endregion
         }
     }
