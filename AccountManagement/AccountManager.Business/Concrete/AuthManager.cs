@@ -1,7 +1,9 @@
 ﻿using AccountManager.Business.Abstract;
 using AccountManager.Business.Constants;
+using AccountManager.Business.ValidationRules.FluentValidation;
 using AccountManager.Dto.Concrete;
 using AutoMapper;
+using Core.Aspects.Autofac.Validation;
 using Core.Entity.Concrete;
 using Core.Utilities.Results;
 using Core.Utilities.Security.Hashing;
@@ -29,7 +31,7 @@ namespace AccountManager.Business.Concrete
                 return new SuccessDataResult<AccessToken>(_tokenHelper.CreateToken(account));
             });
         }
-
+        [ValidationAspect(typeof(LoginValidator))]
         public async Task<IDataResult<Account>> LoginAsync(LoginDto loginDto)
         {
             var accountCheck = await _accountService.GetAccountByEmailOrUsername(loginDto.UserNameOrEmail);
@@ -44,7 +46,7 @@ namespace AccountManager.Business.Concrete
             }
             return new SuccessDataResult<Account>(accountCheck.Data);
         }
-
+        [ValidationAspect(typeof(RegisterValidator))]
         public async Task<IResult> RegisterAsync(RegisterDto registerDto)
         {
             var accountCheck = await _accountService.GetAccountByEmailOrUsername(registerDto.Email);

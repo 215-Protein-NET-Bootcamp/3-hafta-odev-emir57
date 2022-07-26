@@ -1,8 +1,10 @@
 ﻿using AccountManager.Business.Abstract;
+using AccountManager.Business.ValidationRules.FluentValidation;
 using AccountManager.Data.Abstract;
 using AccountManager.Dto.Concrete;
 using AccountManager.Entity.Concrete;
 using AutoMapper;
+using Core.Aspects.Autofac.Validation;
 using Core.Extensions.Jwt;
 using Core.Utilities.Results;
 using Microsoft.AspNetCore.Http;
@@ -18,7 +20,7 @@ namespace AccountManager.Business.Concrete
             _personDal = repository;
             _httpContextAccessor = httpContextAccessor;
         }
-
+        [ValidationAspect(typeof(PersonValidator))]
         public override Task<IResult> AddAsync(PersonDto entity)
         {
             return base.AddAsync(entity);
@@ -30,7 +32,7 @@ namespace AccountManager.Business.Concrete
             var persons = await _personDal.GetAllAsync(x => x.AccountId == Convert.ToInt32(loginedAccountId));
             return new SuccessDataResult<List<Person>>(persons.ToList());
         }
-
+        [ValidationAspect(typeof(PersonValidator))]
         public override Task<IResult> UpdateAsync(int id, PersonDto entity)
         {
             return base.UpdateAsync(id, entity);

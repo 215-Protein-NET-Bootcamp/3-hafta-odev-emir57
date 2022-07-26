@@ -1,8 +1,10 @@
 ﻿using AccountManager.Business.Abstract;
 using AccountManager.Business.Constants;
+using AccountManager.Business.ValidationRules.FluentValidation;
 using AccountManager.Data.Abstract;
 using AccountManager.Dto.Concrete;
 using AutoMapper;
+using Core.Aspects.Autofac.Validation;
 using Core.Entity.Concrete;
 using Core.Utilities.Results;
 
@@ -13,7 +15,7 @@ namespace AccountManager.Business.Concrete
         public AccountManager(IAccountDal repository, IMapper mapper) : base(repository, mapper)
         {
         }
-
+        [ValidationAspect(typeof(AccountValidator))]
         public override Task<IResult> AddAsync(AccountDto entity)
         {
             return base.AddAsync(entity);
@@ -26,7 +28,7 @@ namespace AccountManager.Business.Concrete
                 return new ErrorDataResult<Account>(BusinessMessages.NotFound);
             return new SuccessDataResult<Account>(account);
         }
-
+        [ValidationAspect(typeof(AccountValidator))]
         public override Task<IResult> UpdateAsync(int id, AccountDto entity)
         {
             return base.UpdateAsync(id, entity);
