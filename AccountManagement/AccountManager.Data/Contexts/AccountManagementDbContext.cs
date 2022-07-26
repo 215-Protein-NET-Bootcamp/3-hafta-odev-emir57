@@ -1,4 +1,5 @@
 ﻿using AccountManager.Entity.Concrete;
+using Core.Entity;
 using Core.Entity.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -17,6 +18,20 @@ namespace AccountManager.Data.Contexts
 
             modelBuilder.Entity<Person>()
                 .ToTable("Persons");
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            var datas = ChangeTracker.Entries<IEntity>();
+            foreach (var data in datas)
+            {
+                var _ = data.State switch
+                {
+                    EntityState.Deleted => data.Entity.DeletedDate = DateTime.Now,
+                    _ => DateTime.Now
+                };
+            }
+            return base.SaveChangesAsync(cancellationToken);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
