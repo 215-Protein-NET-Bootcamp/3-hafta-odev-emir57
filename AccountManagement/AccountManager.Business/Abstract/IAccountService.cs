@@ -1,5 +1,5 @@
 ﻿using AccountManager.Dto.Concrete;
-using AccountManager.Entity.Concrete;
+using Core.Entity.Concrete;
 
 namespace AccountManager.Business.Abstract
 {

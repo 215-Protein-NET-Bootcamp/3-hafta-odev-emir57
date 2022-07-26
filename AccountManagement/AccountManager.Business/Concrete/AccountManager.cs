@@ -1,9 +1,8 @@
 ﻿using AccountManager.Business.Abstract;
 using AccountManager.Data.Abstract;
 using AccountManager.Dto.Concrete;
-using AccountManager.Entity.Concrete;
 using AutoMapper;
-using Core.DataAccess;
+using Core.Entity.Concrete;
 using Core.Utilities.Results;
 
 namespace AccountManager.Business.Concrete

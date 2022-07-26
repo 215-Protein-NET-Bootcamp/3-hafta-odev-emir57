@@ -1,7 +1,8 @@
-﻿using AccountManager.Data.Contexts;
-using AccountManager.Entity.Concrete;
+﻿using AccountManager.Data.Abstract;
+using AccountManager.Data.Contexts;
 using Core.DataAccess.EntityFramework;
-using AccountManager.Data.Abstract;
+using Core.Entity.Concrete;
+
 namespace AccountManager.Data.Concrete.EntityFramework
 {
     public class EfAccountDal : EfRepositoryBase<Account, AccountManagementDbContext>, IAccountDal

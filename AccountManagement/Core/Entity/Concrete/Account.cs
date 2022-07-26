@@ -1,7 +1,6 @@
-﻿using Core.Entity;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace AccountManager.Entity.Concrete
+namespace Core.Entity.Concrete
 {
     public class Account : IEntity
     {

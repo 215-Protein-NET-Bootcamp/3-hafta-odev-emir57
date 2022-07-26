@@ -1,4 +1,5 @@
 ﻿using AccountManager.Entity.Concrete;
+using Core.Entity.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
