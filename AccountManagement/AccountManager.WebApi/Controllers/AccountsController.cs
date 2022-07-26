@@ -8,10 +8,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace AccountManager.WebApi.Controllers
 {
     [ApiController]
-    [Route("api/accounts")]
-    public class AccountController : BaseController<AccountDto, Account>
+    [Route("api/[controller]")]
+    public class AccountsController : BaseController<AccountDto, Account>
     {
-        public AccountController(IAccountService baseService, IMapper mapper) : base(baseService, mapper)
+        public AccountsController(IAccountService baseService, IMapper mapper) : base(baseService, mapper)
         {
         }
 
