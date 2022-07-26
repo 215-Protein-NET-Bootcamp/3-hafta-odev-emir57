@@ -21,7 +21,7 @@ namespace Core.Utilities.Security.Jwt
             _accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration);
             SecurityKey securityKey = SecurityKeyHelper.CreateSecurityKey(_tokenOptions.SecurityKey);
             SigningCredentials signingCredentials = SigningCredentialsHelper.CreateSigningCredentials(securityKey);
-            JwtSecurityToken jwt = createJwtSecurityToken(account, _tokenOptions, _accessTokenExpiration);
+            JwtSecurityToken jwt = createJwtSecurityToken(account, _tokenOptions, _accessTokenExpiration, signingCredentials);
             JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
             string token = handler.WriteToken(jwt);
             return new AccessToken
@@ -31,14 +31,15 @@ namespace Core.Utilities.Security.Jwt
             };
         }
 
-        private JwtSecurityToken createJwtSecurityToken(Account account, TokenOptions tokenOptions, DateTime accessTokenExpiration)
+        private JwtSecurityToken createJwtSecurityToken(Account account, TokenOptions tokenOptions, DateTime accessTokenExpiration, SigningCredentials signing)
         {
             return new JwtSecurityToken(
-                issuer: _tokenOptions.Issuer,
-                audience: _tokenOptions.Audience,
+                issuer: tokenOptions.Issuer,
+                audience: tokenOptions.Audience,
                 notBefore: DateTime.Now,
-                expires: _accessTokenExpiration,
-                claims: setClaims(account));
+                expires: accessTokenExpiration,
+                claims: setClaims(account),
+                signingCredentials: signing);
         }
 
         private IEnumerable<Claim> setClaims(Account account)
