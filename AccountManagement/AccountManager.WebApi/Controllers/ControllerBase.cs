@@ -36,6 +36,15 @@ namespace AccountManager.WebApi.Controllers
         }
 
         [NonAction]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            var result = await BaseService.DeleteAsync(id);
+            if (result.Success)
+                return Ok(result);
+            return BadRequest(result);
+        }
+
+        [NonAction]
         public async Task<IActionResult> GetByIdAsync(int id)
         {
             var result = await BaseService.GetByIdAsync(id);
