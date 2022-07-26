@@ -4,6 +4,8 @@ using @abstract = AccountManager.Business.Abstract;
 using AccountManager.Data.Concrete.EntityFramework;
 using AccountManager.Data.Abstract;
 using Core.Utilities.Security.Jwt;
+using AccountManager.Business.Concrete;
+using AccountManager.Business.Abstract;
 
 namespace AccountManager.Business.DependencyResolvers.Autofac
 {
@@ -23,6 +25,10 @@ namespace AccountManager.Business.DependencyResolvers.Autofac
 
             #region Jwt
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
+            #endregion
+
+            #region Auth
+            builder.RegisterType<concrete.AuthManager>().As<@abstract.IAuthService>();
             #endregion
         }
     }
