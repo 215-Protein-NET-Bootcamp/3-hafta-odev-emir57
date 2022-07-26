@@ -14,6 +14,7 @@ namespace AccountManager.Entity.Concrete
         public string Description { get; set; }
         public string Phone { get; set; }
         public DateTime DateOfBirth { get; set; }
+        public DateTime? DeletedDate { get; set; }
 
         [NotMapped]
         public string FullName
