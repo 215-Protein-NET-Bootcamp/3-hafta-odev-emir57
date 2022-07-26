@@ -3,7 +3,9 @@ using AccountManager.Business.Constants;
 using AccountManager.Business.ValidationRules.FluentValidation;
 using AccountManager.Dto.Concrete;
 using AutoMapper;
+using Core.Aspects.Autofac.Logging;
 using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Logging.Serilog.Loggers;
 using Core.Entity.Concrete;
 using Core.Utilities.Results;
 using Core.Utilities.Security.Hashing;
@@ -31,6 +33,7 @@ namespace AccountManager.Business.Concrete
                 return new SuccessDataResult<AccessToken>(_tokenHelper.CreateToken(account));
             });
         }
+        [LogAspect(typeof(FileLogger))]
         [ValidationAspect(typeof(LoginValidator))]
         public async Task<IDataResult<Account>> LoginAsync(LoginDto loginDto)
         {

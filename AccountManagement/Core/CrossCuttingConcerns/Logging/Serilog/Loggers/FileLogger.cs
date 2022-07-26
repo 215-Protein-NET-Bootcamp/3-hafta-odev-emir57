@@ -17,17 +17,16 @@ namespace Core.CrossCuttingConcerns.Logging.Serilog.Loggers
                 .Get<FileLogConfiguration>() ??
                 throw new SerilogFilePathException();
 
-            var logFilePath = string.Format("{0}{1}", Directory.GetCurrentDirectory() + logConfig.FolderPath, ".txt");
+            var logFilePath = string.Format("{0}{1}", Directory.GetCurrentDirectory() + logConfig.FolderPath, "log.txt");
 
             Logger = new LoggerConfiguration()
-                .WriteTo
-                .File(
+                .WriteTo.File(
                     logFilePath,
                     rollingInterval: RollingInterval.Day,
                     retainedFileCountLimit: null,
                     fileSizeLimitBytes: 5000000,
-                    outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] {Message}{NewLine}{Exception}"
-                ).CreateLogger();
+                    outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] {Message}{NewLine}{Exception}")
+                .CreateLogger();
 
         }
     }

@@ -1,6 +1,7 @@
 using AccountManager.Business.DependencyResolvers.Autofac;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Core.CrossCuttingConcerns.Logging.Serilog.Loggers;
 using Core.DependencyResolvers;
 using Core.Extensions;
 using Core.Extensions.Middleware;
@@ -46,6 +47,8 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
         builder.RegisterModule(new AutofacBusinessModule());
     });
 #endregion
+
+builder.Services.AddTransient<FileLogger>();
 
 #region Core DependencyResolver
 builder.Services.AddDependencyResolvers(
