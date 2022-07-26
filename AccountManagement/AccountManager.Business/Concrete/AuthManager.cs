@@ -13,6 +13,7 @@ using Core.Utilities.Security.Jwt;
 
 namespace AccountManager.Business.Concrete
 {
+    [LogAspect(typeof(FileLogger))]
     public class AuthManager : IAuthService
     {
         private readonly ITokenHelper _tokenHelper;
@@ -33,7 +34,6 @@ namespace AccountManager.Business.Concrete
                 return new SuccessDataResult<AccessToken>(_tokenHelper.CreateToken(account));
             });
         }
-        [LogAspect(typeof(FileLogger))]
         [ValidationAspect(typeof(LoginValidator))]
         public async Task<IDataResult<Account>> LoginAsync(LoginDto loginDto)
         {

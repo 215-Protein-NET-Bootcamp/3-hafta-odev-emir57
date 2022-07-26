@@ -4,12 +4,15 @@ using AccountManager.Business.ValidationRules.FluentValidation;
 using AccountManager.Data.Abstract;
 using AccountManager.Dto.Concrete;
 using AutoMapper;
+using Core.Aspects.Autofac.Logging;
 using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Logging.Serilog.Loggers;
 using Core.Entity.Concrete;
 using Core.Utilities.Results;
 
 namespace AccountManager.Business.Concrete
 {
+    [LogAspect(typeof(FileLogger))]
     public class AccountManager : AsyncBaseManager<AccountDto, Account>, IAccountService
     {
         public AccountManager(IAccountDal repository, IMapper mapper) : base(repository, mapper)

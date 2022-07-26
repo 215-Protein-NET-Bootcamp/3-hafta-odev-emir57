@@ -4,13 +4,16 @@ using AccountManager.Data.Abstract;
 using AccountManager.Dto.Concrete;
 using AccountManager.Entity.Concrete;
 using AutoMapper;
+using Core.Aspects.Autofac.Logging;
 using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Logging.Serilog.Loggers;
 using Core.Extensions.Jwt;
 using Core.Utilities.Results;
 using Microsoft.AspNetCore.Http;
 
 namespace AccountManager.Business.Concrete
 {
+    [LogAspect(typeof(FileLogger))]
     public class PersonManager : AsyncBaseManager<PersonDto, Person>, IPersonService
     {
         private readonly IPersonDal _personDal;
