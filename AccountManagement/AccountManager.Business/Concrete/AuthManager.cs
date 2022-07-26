@@ -1,13 +1,11 @@
 ﻿using AccountManager.Business.Abstract;
+using AccountManager.Business.Constants;
 using AccountManager.Dto.Concrete;
+using AutoMapper;
 using Core.Entity.Concrete;
 using Core.Utilities.Results;
+using Core.Utilities.Security.Hashing;
 using Core.Utilities.Security.Jwt;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AccountManager.Business.Concrete
 {
@@ -15,11 +13,13 @@ namespace AccountManager.Business.Concrete
     {
         private readonly ITokenHelper _tokenHelper;
         private readonly IAccountService _accountService;
+        private readonly IMapper _mapper;
 
-        public AuthManager(IAccountService accountService, ITokenHelper tokenHelper)
+        public AuthManager(IAccountService accountService, ITokenHelper tokenHelper, IMapper mapper)
         {
             _accountService = accountService;
             _tokenHelper = tokenHelper;
+            _mapper = mapper;
         }
 
         public async Task<IDataResult<AccessToken>> CreateAccessTokenAsync(Account account)
@@ -30,19 +30,35 @@ namespace AccountManager.Business.Concrete
             });
         }
 
-        public Task<IDataResult<Account>> LoginAsync(LoginDto loginDto)
+        public async Task<IDataResult<Account>> LoginAsync(LoginDto loginDto)
         {
-            throw new NotImplementedException();
+            var accountCheck = await _accountService.GetAccountByEmailOrUsername(loginDto.UserNameOrEmail);
+            if (accountCheck.Success == false)
+                return accountCheck;
+            if (HashingHelper.VerifyPasswordHash(
+                loginDto.Password,
+                accountCheck.Data.PasswordHash,
+                accountCheck.Data.PasswordSalt) == false)
+            {
+                return new ErrorDataResult<Account>(BusinessMessages.WrongPassword);
+            }
+            return new SuccessDataResult<Account>(accountCheck.Data);
         }
 
-        public Task<IResult> RegisterAsync(RegisterDto registerDto)
+        public async Task<IResult> RegisterAsync(RegisterDto registerDto)
         {
-            throw new NotImplementedException();
-        }
+            var accountCheck = await _accountService.GetAccountByEmailOrUsername(registerDto.Email);
+            if (accountCheck.Success == true)
+                return new ErrorResult(BusinessMessages.UserAlreadyExists);
 
-        public Task<IResult> UserExistsAsync(string usernameOrEmial)
-        {
-            Account account = _accountService.get
+            byte[] passwordHash, passwordSalt;
+            HashingHelper.CreatePasswordHash(registerDto.Password, out passwordHash, out passwordSalt);
+            AccountDto accountDto = _mapper.Map<AccountDto>(registerDto);
+
+            accountDto.PasswordHash = passwordHash;
+            accountDto.PasswordSalt = passwordSalt;
+
+            return await _accountService.AddAsync(accountDto);
         }
     }
 }

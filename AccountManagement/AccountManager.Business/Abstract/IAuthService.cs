@@ -10,6 +10,5 @@ namespace AccountManager.Business.Abstract
         Task<IDataResult<Account>> LoginAsync(LoginDto loginDto);
         Task<IResult> RegisterAsync(RegisterDto registerDto);
         Task<IDataResult<AccessToken>> CreateAccessTokenAsync(Account account);
-        Task<IResult> UserExistsAsync(string usernameOrEmial);
     }
 }
