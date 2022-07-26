@@ -1,6 +1,7 @@
 using AccountManager.Business.DependencyResolvers.Autofac;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Core.Extensions.Middleware;
 using Core.Utilities.Security.Encryption;
 using Core.Utilities.Security.Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -53,6 +54,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseExceptionMiddleware();
 
 app.UseHttpsRedirection();
 
