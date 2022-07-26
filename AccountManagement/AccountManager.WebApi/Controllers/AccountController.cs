@@ -2,15 +2,16 @@
 using AccountManager.Dto.Concrete;
 using AccountManager.Entity.Concrete;
 using AutoMapper;
+using Core.Entity.Concrete;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AccountManager.WebApi.Controllers
 {
     [ApiController]
-    [Route("api/persons")]
-    public class PersonController : BaseController<PersonDto, Person>
+    [Route("api/accounts")]
+    public class AccountController : BaseController<AccountDto, Account>
     {
-        public PersonController(IPersonService baseService, IMapper mapper) : base(baseService, mapper)
+        public AccountController(IAccountService baseService, IMapper mapper) : base(baseService, mapper)
         {
         }
 
@@ -25,12 +26,12 @@ namespace AccountManager.WebApi.Controllers
             return await base.GetByIdAsync(id);
         }
         [HttpPost]
-        public async Task<IActionResult> AddAsync([FromBody] PersonDto personDto)
+        public async Task<IActionResult> AddAsync([FromBody] AccountDto personDto)
         {
             return await base.AddAsync(personDto);
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAsync([FromRoute] int id, [FromBody] PersonDto personDto)
+        public async Task<IActionResult> UpdateAsync([FromRoute] int id, [FromBody] AccountDto personDto)
         {
             return await base.UpdateAsync(id, personDto);
         }

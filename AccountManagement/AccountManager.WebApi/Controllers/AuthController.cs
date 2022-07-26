@@ -6,7 +6,7 @@ namespace AccountManager.WebApi.Controllers
 {
     [ApiController]
     [Route("api/auth")]
-    public class AuthController : BaseController
+    public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
 
