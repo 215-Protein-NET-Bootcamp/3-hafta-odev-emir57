@@ -29,5 +29,6 @@ namespace AccountManager.Business.Constants
 
         internal static readonly string UnSuccessRegister = "UnSuccessfully register";
         internal static readonly string SuccessRegister = "Successfully register";
+        internal static readonly string SuccessCreateToken = "Success create token";
     }
 }

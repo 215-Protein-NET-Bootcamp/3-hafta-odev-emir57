@@ -32,9 +32,20 @@ namespace AccountManager.Business.Concrete
             return new SuccessDataResult<Account>(account);
         }
         [ValidationAspect(typeof(AccountValidator))]
-        public override Task<IResult> UpdateAsync(int id, AccountDto entity)
+        public override async Task<IResult> UpdateAsync(int id, AccountDto entity)
         {
-            return base.UpdateAsync(id, entity);
+            Account updatedEntity = await Repository.GetByIdAsync(id);
+            if (updatedEntity == null)
+                return new ErrorResult(BusinessMessages.NotFound);
+
+            updatedEntity.Email = entity.Email;
+            updatedEntity.Name = entity.Name;
+            updatedEntity.UserName = entity.UserName;
+
+            bool result = await Repository.UpdateAsync(updatedEntity);
+            if (result)
+                return new SuccessResult(BusinessMessages.SuccessUpdate);
+            return new ErrorResult(BusinessMessages.UnSuccessUpdate);
         }
     }
 }

@@ -7,5 +7,6 @@ namespace AccountManager.Data.Concrete.EntityFramework
 {
     public class EfAccountDal : EfRepositoryBase<Account, AccountManagementDbContext>, IAccountDal
     {
+        
     }
 }
