@@ -1,5 +1,12 @@
 # 3-hafta-odev-emir57
-
+Async Programming ⚙️<br>
+Aspect Oriented Programming ⚙️<br>
+Validation Aspects ✔️<br>
+Log Aspects 📓<br>
+Exception Log Aspects ❌<br>
+JWT Token 🔐
+Hashing Password 🔑
+<hr>
 <img src="images/1.png"/>
 <img src="images/2.png"/>
 <img src="images/3.png"/>
