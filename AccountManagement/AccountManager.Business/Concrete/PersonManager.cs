@@ -29,7 +29,7 @@ namespace AccountManager.Business.Concrete
             return base.AddAsync(entity);
         }
 
-        public async Task<IDataResult<List<Person>>> GetPersons()
+        public async Task<IDataResult<List<Person>>> GetPersonsAsync()
         {
             string loginedAccountId = _httpContextAccessor.HttpContext.User.ClaimId();
             var persons = await _personDal.GetAllAsync(x => x.AccountId == Convert.ToInt32(loginedAccountId));

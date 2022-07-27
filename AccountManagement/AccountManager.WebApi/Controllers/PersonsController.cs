@@ -21,7 +21,7 @@ namespace AccountManager.WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var result = await _personService.GetPersons();
+            var result = await _personService.GetPersonsAsync();
             if (result.Success == false)
                 return BadRequest(result);
             return Ok(result);
