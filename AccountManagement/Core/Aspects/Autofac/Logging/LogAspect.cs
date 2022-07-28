@@ -8,6 +8,7 @@ using Core.Utilities.IoC;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using System.Reflection;
 
 namespace Core.Aspects.Autofac.Logging
 {
@@ -39,7 +40,7 @@ namespace Core.Aspects.Autofac.Logging
                 {
                     Name = invocation.GetConcreteMethod().GetParameters()[i].Name,
                     Type = invocation.Arguments[i].GetType().ToString(),
-                    Value = invocation.Arguments[i]
+                    Value = checkPasswordProperty(invocation.Arguments[i]) ? "***" : invocation.Arguments[i]
                 });
             }
             LogDetail logDetail = new LogDetail
@@ -50,5 +51,18 @@ namespace Core.Aspects.Autofac.Logging
             };
             return JsonConvert.SerializeObject(logDetail);
         }
+
+        private bool checkPasswordProperty(object obj)
+        {
+            var objType = obj.GetType();
+            if (objType.GetProperty("Password") != null)
+                return true;
+            if (objType.GetProperty("PasswordHash") != null)
+                return true;
+            if (objType.GetProperty("PasswordSalt") != null)
+                return true;
+            return false;
+        }
+
     }
 }
