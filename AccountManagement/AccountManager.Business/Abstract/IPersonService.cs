@@ -6,6 +6,6 @@ namespace AccountManager.Business.Abstract
 {
     public interface IPersonService : IAsyncBaseService<PersonDto, Person>
     {
-        Task<IDataResult<List<Person>>> GetPersonsAsync();
+        Task<DataResult<List<Person>>> GetPersonsAsync();
     }
 }

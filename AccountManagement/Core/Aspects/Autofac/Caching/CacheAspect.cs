@@ -29,7 +29,8 @@ namespace Core.Aspects.Autofac.Caching
             var key = $"{methodName}({string.Join(",", arguments.Select(x => x?.ToString() ?? "<Null>"))})";
             if (_cacheManager.IsAdd(key))
             {
-                invocation.ReturnValue = _cacheManager.Get<T>(key);
+                var value = _cacheManager.Get<T>(key);
+                invocation.ReturnValue = Task.Run(() => value);
                 return;
             }
             invocation.Proceed();

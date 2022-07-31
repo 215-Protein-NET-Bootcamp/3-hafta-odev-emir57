@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using ServiceStack.Redis;
 using System;
+using System.Text;
 
 namespace Core.CrossCuttingConcerns.Caching.Redis
 {
@@ -16,12 +18,14 @@ namespace Core.CrossCuttingConcerns.Caching.Redis
 
         public void Add(string key, object value, int duration)
         {
-            RedisInvoker(x => x.Add(key, value, TimeSpan.FromMinutes(duration)));
+            dynamic dynamicValue = value as dynamic;
+            RedisInvoker(x => x.Add(key, dynamicValue.Result, TimeSpan.FromMinutes(duration)));
         }
 
         public T Get<T>(string key)
         {
             var result = default(T);
+            //RedisInvoker(x => { result = x.Get<T>(key); });
             RedisInvoker(x => { result = x.Get<T>(key); });
             return result;
         }
@@ -29,7 +33,7 @@ namespace Core.CrossCuttingConcerns.Caching.Redis
         public object Get(string key)
         {
             object result = default;
-            RedisInvoker(x => result = x.Get(key));
+            RedisInvoker(x => result = Encoding.UTF8.GetString(x.Get(key)));
             return result;
         }
 

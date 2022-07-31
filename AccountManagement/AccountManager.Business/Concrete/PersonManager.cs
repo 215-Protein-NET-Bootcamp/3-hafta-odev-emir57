@@ -4,6 +4,7 @@ using AccountManager.Data.Abstract;
 using AccountManager.Dto.Concrete;
 using AccountManager.Entity.Concrete;
 using AutoMapper;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Logging;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Logging.Serilog.Loggers;
@@ -28,8 +29,8 @@ namespace AccountManager.Business.Concrete
         {
             return base.AddAsync(entity);
         }
-
-        public async Task<IDataResult<List<Person>>> GetPersonsAsync()
+        [CacheAspect<DataResult<List<Person>>>()]
+        public async Task<DataResult<List<Person>>> GetPersonsAsync()
         {
             string loginedAccountId = _httpContextAccessor.HttpContext.User.ClaimId();
             var persons = await _personDal.GetAllAsync(x => x.AccountId == Convert.ToInt32(loginedAccountId));
